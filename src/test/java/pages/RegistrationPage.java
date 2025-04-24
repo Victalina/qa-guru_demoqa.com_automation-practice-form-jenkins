@@ -144,7 +144,7 @@ public class RegistrationPage {
     return this;
   }
 
-  @Step("Press the button Submit")
+  @Step("Check that the confirmation submitting the form has appeared")
   public RegistrationPage checkFormAppears(){
     modalDialog.should(appear);
     exampleModalSizesTitleLg.shouldHave(text("Thanks for submitting the form"));
@@ -152,7 +152,7 @@ public class RegistrationPage {
     return this;
   }
 
-  @Step("Check that the confirmation submitting the form has appeared")
+  @Step("Check that the confirmation submitting the form has not appeared")
   public RegistrationPage checkFormNotAppears(){
     modalDialog.shouldNot(appear);
 
