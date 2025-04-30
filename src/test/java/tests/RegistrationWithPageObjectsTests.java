@@ -72,7 +72,6 @@ public class RegistrationWithPageObjectsTests extends TestBase {
 
   @Test
   @DisplayName("Unsuccessful registration without required fields")
-  @Disabled
   void UnsuccessfulRegistrationWithoutRequiredFieldsTest() {
 
     registrationPage.openPage()
