@@ -16,17 +16,12 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 public class TestBase {
 
   @BeforeAll
-  static void setupConfig(){
+  static void setupConfig() {
     Configuration.baseUrl = "https://demoqa.com";
     Configuration.browser = System.getProperty("browser", "chrome");
     Configuration.browserSize = System.getProperty("windowSize", "1920x1080");
     Configuration.browserVersion = System.getProperty("version", "101");
     Configuration.remote = System.getProperty("remoteBrowser", "https://user1:1234@selenoid.autotests.cloud/wd/hub");
-    SelenideLogger.addListener("allure", new AllureSelenide());
-  }
-
-  @BeforeEach
-  void setupVideo(){
     DesiredCapabilities capabilities = new DesiredCapabilities();
     capabilities.setCapability("selenoid:options", Map.<String, Object>of(
             "enableVNC", true,
@@ -35,15 +30,17 @@ public class TestBase {
     Configuration.browserCapabilities = capabilities;
   }
 
+  @BeforeEach
+  void addListener() {
+    SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+  }
+
   @AfterEach
-  void addAttachments(){
+  void addAttachments() {
     Attach.screenshotAs("Last screenshot");
     Attach.pageSource();
     Attach.browserConsoleLogs();
     Attach.addVideo();
-  }
-
-  void teardown(){
     closeWebDriver();
   }
 }
